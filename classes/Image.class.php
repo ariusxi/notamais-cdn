@@ -2,6 +2,8 @@
 class Image
 {
     const DIR = __DIR__ . "/../";
+    const URL = "https://cdn-notamais.herokuapp.com/";
+
     public static function validate($params = array(), $files = array())
     {
         //verificando se o diretório do POST existe
@@ -86,7 +88,7 @@ class Image
             $path = self::DIR . DIRECTORY_SEPARATOR . $params['folder'] . "/" . $name;
             //criando foto e colocando no diretório
             imagejpeg($image, $path, 80);
-            return ["status" => "200", "data" => ["url" => $_SERVER['HTTP_ORIGIN'] . '/' . $params['folder'] . '/' . $name]];
+            return ["status" => "200", "data" => ["url" => self::URL . '/' . $params['folder'] . '/' . $name]];
         } catch (Exception $e) {
             return ["status" => "400", "data" => ["response" => "failed to compress image"]];
         }
@@ -155,7 +157,7 @@ class Image
             $name = md5(uniqid()) . ".jpg";
             //criando a foto e colocando no diretório
             imagejpeg($tmp_img, $params['folder'] . '/' . $name, 80);
-            return ["status" => "200", "data" => ["url" => $_SERVER['HTTP_ORIGIN'] . '/' . $params['folder'] . '/' . $name]];
+            return ["status" => "200", "data" => ["url" => self::URL . '/' . $params['folder'] . '/' . $name]];
         } catch (Exception $e) {
             return ["status" => "400", "data" => ["response" => "failed to cut image"]];
         }
@@ -177,7 +179,7 @@ class Image
             $currentFileNameArray = explode(".", $files['file']['name']);
             $name = $currentFileNameArray[0] . '_' . $nameTimestamp . '.' . $currentFileNameArray[count($currentFileNameArray) - 1];
             //definindo diretório da imagem
-            $url = $_SERVER['HTTP_ORIGIN'] . '/' . $params['folder'] . '/' . $name;
+            $url = self::URL . '/' . $params['folder'] . '/' . $name;
             $path = $path . DIRECTORY_SEPARATOR . $name;
             //movendo imagem para diretório
             if (move_uploaded_file($files['file']['tmp_name'], $path)) {
