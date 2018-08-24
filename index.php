@@ -32,4 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     http_response_code($response['status']);
     echo json_encode($response['data']);
     return true;
+}else{
+    echo "CDN Nota Mais 1.0";
 }
