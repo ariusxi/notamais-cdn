@@ -33,5 +33,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     echo json_encode($response['data']);
     return true;
 }else{
-    echo "CDN Nota Mais 1.0";
+    echo json_encode(["title" => "CDN Nota Mais 1.0"]);
 }
